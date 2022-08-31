@@ -1,4 +1,4 @@
-![Map Multi Polygon, awesome resource field for Nova](banner.png)
+![Map Multi Polygon, awesome resource field for Nova](banner.jpg)
 
 ---
 
