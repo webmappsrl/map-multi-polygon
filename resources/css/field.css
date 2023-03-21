@@ -7,3 +7,36 @@
     height: 100px;
     width: 300px;
 }
+.leaflet-pane{z-index:50!important}
+.leaflet-bottom,.leaflet-top{z-index:51!important}
+.version-image {
+    display: unset!important;
+    height: inherit;
+}
+.leaflet-control-attribution {
+    padding-right: 0!important;
+}
+.delete-button {
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+    background-color: white;
+}
+.fullscreen-icon {
+    background-image: url(https://unpkg.com/leaflet.fullscreen@2.4.0/icon-fullscreen.svg)!important;
+}
+.flex-container {
+    margin: 10px 10px 10px 0px;
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: stretch;
+}
+.flex-geometry {
+    flex: 1 0 25%;
+    align-self: auto;
+    margin-right: 5px;
+}

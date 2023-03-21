@@ -66,7 +66,11 @@ class MapMultiPolygon extends Field
 
     public function geojsonToGeometry($geojson)
     {
-        $query = "SELECT ST_AsText(ST_GeomFromGeoJSON('$geojson')) As wkt";
-        return DB::select($query)[0]->wkt;
+        if (!is_null($geojson) && $geojson != "null") {
+            $query = "SELECT ST_AsText(ST_GeomFromGeoJSON('$geojson')) As wkt";
+            return DB::select($query)[0]->wkt;
+        } else {
+            return null;
+        }
     }
 }
