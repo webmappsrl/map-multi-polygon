@@ -22,7 +22,6 @@ export default {
       try {
         geometry = this.geojson && this.geojson.features && this.geojson.features[0] ? this.geojson.features[0].geometry : this.geojson
       } catch (error) {
-        window.alert('the file is corrupt');
         console.error(error);
       }
       if (geometry != null) {
