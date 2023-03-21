@@ -6,8 +6,9 @@
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Develop](#develop)
 - [Usage](#usage)
-  - [Map Multi Polygon](#map-multi-polygon)
+  - [Map Point](#map-point)
 - [Configuration](#configuration)
 
 ## Requirements
@@ -22,6 +23,41 @@ You can install the package in to a Laravel app that uses [Nova](https://nova.la
 ```bash
 composer require wm/map-multi-polygon
 ```
+
+## Develop
+create a```nova-components``` folder in the root of the project where you want to develop.
+Clone map-multi-linestring inside.
+add  in ``` "repositories"``` array  attribute of ```composer.json```  
+```php 
+        {
+            "type": "path",
+            "url": "./nova-components/map-multi-polygon"
+        }
+
+```
+
+modify  in ``` "requires"``` object  attribute of ```composer.json```  
+```php 
+    "wm/map-multi-polygon": "*",
+
+```
+in the first time
+
+launch inside the repository hosting the field
+```bash
+    cd vendor/laravel/nova && npm install
+```
+we need modify composer.lock 
+launch
+```bash
+    composer update wm/map-multi-linestring
+```
+
+launch inside field
+```bash
+    npm install
+```
+
 
 ## Usage
 
