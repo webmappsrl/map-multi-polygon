@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@mapbox/togeojson": "^0.16.0",
-    "leaflet": "^1.8.0"
+    "leaflet": "^1.8.0",
+    "leaflet.fullscreen": "^2.4.0"
   }
 }
