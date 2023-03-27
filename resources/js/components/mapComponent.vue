@@ -53,7 +53,6 @@ export default {
         // Initialize the Leaflet map and other related components
         initMap() {
             setTimeout(() => {
-                console.log('testmodifiche');
                 this.center = this.field.center ?? DEFAULT_CENTER;
                 this.maxZoom = this.field.maxZoom ?? DEFAULT_MAXZOOM;
                 this.minZoom = this.field.minZoom ?? DEFAULT_MINZOOM;
@@ -90,7 +89,14 @@ export default {
         },
         // Create and add a multipolygon to the map using the provided GeoJSON
         buildMultipolygon(geojson) {
+            // Fixes the issue where leaflet draw is not able to edit a multipolygon https://github.com/Leaflet/Leaflet.draw/issues/268
             if (geojson != null) {
+                // If the GeoJSON object is of type 'MultiPolygon', convert it to a 'Polygon'
+                if (geojson.type === 'MultiPolygon') {
+                    geojson.type = 'Polygon';
+                    // Set the Polygon coordinates to be the first set of coordinates from the MultiPolygon
+                    geojson.coordinates = geojson.coordinates[0];
+                }
                 this.multipolygon = L.geoJson(geojson, {
                     style: MULTIPOLYGON_OPTIONS
                 }).addTo(this.map);
@@ -111,6 +117,7 @@ export default {
             if (!this.edit) {
                 return;
             }
+            // Extend the Leaflet Control class to create a custom deleteGeometry control
             L.Control.deleteGeometry = L.Control.extend({
                 onAdd: () => {
                     this.deleteIcon = L.DomUtil.create('div')
@@ -118,6 +125,7 @@ export default {
                     var img = L.DomUtil.create('img');
                     img.src = 'https://cdn-icons-png.flaticon.com/512/2891/2891491.png';
                     this.deleteIcon.appendChild(img);
+                    // Add a click event listener to the delete button
                     L.DomEvent.on(this.deleteIcon, "click", (e) => {
                         L.DomEvent.stopPropagation(e);
                         this.updateMultipolygon(null);
@@ -147,15 +155,19 @@ export default {
                 this.map.removeLayer(this.multipolygon);
                 this.multipolygon = null;
             }
+            // If an event was provided create a new FileReader instance to read the contents of the uploaded file
             if (event) {
                 const reader = new FileReader();
                 let fileName = event.target.files[0].name || '';
                 reader.onload = (event) => {
                     let res = event.target.result;
+                    // Check the file type and convert it to GeoJSON if necessary
                     if (fileName.indexOf('gpx') > -1) {
+                        // If the file is a GPX file, parse the XML and convert it to GeoJSON
                         const parser = new DOMParser().parseFromString(res, 'text/xml');
                         res = t.gpx(parser);
                     } else if (fileName.indexOf('kml') > -1) {
+                        // If the file is a KML file, parse the XML and convert it to GeoJSON
                         const parser = new DOMParser().parseFromString(res, 'text/xml');
                         res = t.kml(parser);
                     } else {
@@ -163,7 +175,7 @@ export default {
                     }
                     this.updateGeojson(res)
                     try {
-                        this.buildMultipolygon(this.geojson.features[0].geometry)
+                        this.buildMultipolygon(this.geojson)
                     } catch (_) {
                         this.deleteIcon.style.visibility = "hidden";
                         this.$refs.file.value = null;
@@ -174,7 +186,6 @@ export default {
             } else {
                 this.updateGeojson(null)
                 this.$refs.file.value = null;
-
             }
         },
         // Update the GeoJSON property and emit the "geojson" event
@@ -187,13 +198,16 @@ export default {
             if (!this.edit) {
                 return;
             }
+            // If the current multipolygon is null, set the draw mode, otherwise, set the edit mode
             if (this.multipolygon == null) {
                 this.setDrawMode();
             } else {
                 this.setEditMode();
             }
+            // Add an event listener for when a new shape is created on the map
             this.map.on('draw:created', (e) => {
                 const layer = e.layer;
+                // If the current multipolygon is null, create a new feature group and set its editing options
                 if (this.multipolygon === null) {
                     this.multipolygon = L.featureGroup().addTo(this.map);
                     this.drawControl.setDrawingOptions({
@@ -207,14 +221,17 @@ export default {
                 const geojson = this.multipolygon.toGeoJSON();
                 this.updateGeojson(geojson);
             });
+            // Add an event listener for when a shape is edited on the map
             this.map.on('draw:edited', (e) => {
                 L.DomEvent.stopPropagation(e);
                 var geojson = this.multipolygon.toGeoJSON();
                 this.updateGeojson(geojson);
             });
+            // Add an event listener for when the delete mode is stopped
             this.map.on('draw:deletestop', (e) => {
                 L.DomEvent.stopPropagation(e);
             });
+            // Add an event listener for when the draw mode is stopped
             this.map.on('draw:drawstop', (e) => {
                 this.setEditMode();
                 L.DomEvent.stopPropagation(e);
