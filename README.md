@@ -33,13 +33,11 @@ add  in ``` "repositories"``` array  attribute of ```composer.json```
             "type": "path",
             "url": "./nova-components/map-multi-polygon"
         }
-
 ```
 
 modify  in ``` "requires"``` object  attribute of ```composer.json```  
 ```php 
     "wm/map-multi-polygon": "*",
-
 ```
 in the first time
 
