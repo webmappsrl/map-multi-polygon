@@ -26,7 +26,7 @@ composer require wm/map-multi-polygon
 
 ## Develop
 create a```nova-components``` folder in the root of the project where you want to develop.
-Clone map-multi-linestring inside.
+Clone map-multi-polygon inside.
 add  in ``` "repositories"``` array  attribute of ```composer.json```  
 ```php 
         {
@@ -48,7 +48,7 @@ launch inside the repository hosting the field
 we need modify composer.lock 
 launch
 ```bash
-    composer update wm/map-multi-linestring
+    composer update wm/map-multi-polygon
 ```
 
 launch inside field
