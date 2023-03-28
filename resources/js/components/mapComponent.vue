@@ -1,4 +1,3 @@
-
 <template>
     <div class="flex-container">
         <div class="flex-geometry" v-if="edit">
@@ -50,7 +49,13 @@ export default {
         }
     },
     methods: {
-        // Initialize the Leaflet map and other related components
+        /**
+         * This code initializes the map by setting various configurations and building components that will be necessary for the map to function properly.
+         * First, the code sets a timeout of 300 milliseconds to ensure that the code is executed after a certain delay. 
+         * Next, the code sets the center, maximum zoom, minimum zoom, default zoom, and attribution of the map to either the values specified in the this.field object or default values if no value is provided. 
+         * The function then calls several other functions to build different features on the map, including an edit mode, the map itself, a multipolygon using a GeoJSON object, and a delete geometry feature.
+         * All of these features are necessary to ensure that the map is fully functional and easy to navigate.
+         */
         initMap() {
             setTimeout(() => {
                 this.center = this.field.center ?? DEFAULT_CENTER;
@@ -65,12 +70,26 @@ export default {
                 this.buildDeleteGeometry();
             }, 300);
         },
-        // Initialize Leaflet edit mode by assigning Leaflet object (L) to the "L" properties of the "document" and "window" objects.
+        /**
+         * The function first assigns the global JavaScript variable L to the document.L property. 
+         * This allows the L variable to be accessible throughout the document. 
+         * Next, the function assigns the global L variable to the window.L property, enabling the L variable to be accessible globally across multiple windows or frames. 
+         * This code assumes that the L variable is a reference to the Leaflet JavaScript library, which is typically used for creating interactive maps. 
+         * The purpose of this function is to initialize editing mode for a Leaflet map, in which a user can add, modify, or delete map features.
+         */
         initLeafletEditMode() {
             document.L = L;
             window.L = L;
         },
-        // Build the Leaflet map and set its initial configuration
+        /**
+         * The function buildMap() creates a map on the DOM element specified by this.mapRef using the JavaScript mapping library Leaflet. If this.field.geojson is not null, 
+         * it is parsed as a GeoJSON object and then passed as an argument to this.updateGeojson(). 
+         * The function then creates a Leaflet map with options for a full-screen control and a center point specified by this.center and a default zoom level this.defaultZoom. 
+         * After this, the function adds a tile layer to the map. The tile layer is specified by a URL in this.field.tiles or, if that is null, a default URL (DEFAULT_TILES). 
+         * The layer is given an attribution string composed of this.attribution, which is a property of the object the buildMap() method belongs to and the string VERSION_IMAGE. 
+         * Additional options provided include the maximum and minimum zoom levels (this.maxZoom and this.minZoom, respectively) and the ID of the tile set ("mapbox/streets-v11"). 
+         * Finally, the tile layer is added to the map.
+         */
         buildMap() {
             var currentGeojson = this.field.geojson != null ? JSON.parse(this.field.geojson) : null;
             this.updateGeojson(currentGeojson)
@@ -87,7 +106,17 @@ export default {
                 id: "mapbox/streets-v11"
             }).addTo(this.map);
         },
-        // Create and add a multipolygon to the map using the provided GeoJSON
+        /**
+         * @param {*} geojson 
+         * This code block creates a custom control in Leaflet that deletes a polygon feature from a geoJSON layer. 
+         * The buildDeleteGeometry() function first checks if the this.edit property is true. If it is not, the function returns without doing anything. 
+         * The function then extends the default Leaflet L.Control class by creating a new L.Control.deleteGeometry class. 
+         * The onAdd() method is added to the L.Control.deleteGeometry class. This method creates a div element that houses an img element for the delete button. 
+         * An event listener is added to this delete button that triggers the updateMultipolygon() method, sets the draw mode, and hides the delete button when clicked. 
+         * If there is a geojson property present and this.edit is true, the setEditMode() method is called. Otherwise, the delete button is hidden and draw mode is set. 
+         * Finally, the L.Control.deleteGeometry class is initialized and added to the Leaflet map at the top right position. 
+         * If there is a non-null multipolygon property and this.edit is true, the delete button is made visible.
+         */
         buildMultipolygon(geojson) {
             // Fixes the issue where leaflet draw is not able to edit a multipolygon https://github.com/Leaflet/Leaflet.draw/issues/268
             if (geojson != null) {
@@ -112,7 +141,16 @@ export default {
                 }
             } catch (_) { }
         },
-        // Create and add the "Delete Geometry" button to the map
+        /**
+         * This function builds a custom deleteGeometry control for a Leaflet map. It first checks if the 'edit' property is truthy, and if not, returns. 
+         * Next, it creates a custom control by extending the Leaflet Control class. The 'onAdd' method is added to this control, 
+         * which creates a delete button and appends it to the custom control. 
+         * When the delete button is clicked, it updates the multipolygon, sets the draw mode, and hides the delete icon.
+         * The function then checks if the 'edit' property is true and the 'geojson' property is not null. If so, it calls the 'setEditMode' method. 
+         * Otherwise, it sets the visibility of the delete button to hidden and calls the 'setDrawMode' method.
+         * Finally, the function instantiates the custom deleteGeometry control and adds it to the map in the top-right position. 
+         * If there is a multipolygon defined and 'edit' is truthy, the visibility of the delete icon is set to 'visible'.
+         */
         buildDeleteGeometry() {
             if (!this.edit) {
                 return;
@@ -149,7 +187,15 @@ export default {
                 this.deleteIcon.style.visibility = "visible";
             }
         },
-        // Update the multipolygon on the map based on the provided input event (e.g., a file upload)
+        /**
+         * @param {*} event 
+         * This function updates a multipolygon on a leaflet map. If the multipolygon already exists, the function removes it from the map. 
+         * If the user provides an input event (in this case, uploading a file), the code creates a new FileReader instance to read the contents of the uploaded file. 
+         * The function then checks the file type (GPX, KML or JSON) and converts it to GeoJSON if necessary using either the t.gpx() or t.kml() functions or JSON.parse(). 
+         * The function then calls updateGeojson(), passing it the converted GeoJSON data. If the data can be processed without any errors, the function calls buildMultipolygon(), passing it the GeoJSON data. 
+         * If the data is corrupt, the function hides a delete icon, resets the file input and notifies the user of the error. 
+         * In the absence of an input event, the function sets the GeoJSON property to null and clears the file input. 
+         */
         updateMultipolygon(event) {
             if (this.multipolygon !== null) {
                 this.map.removeLayer(this.multipolygon);
@@ -188,12 +234,26 @@ export default {
                 this.$refs.file.value = null;
             }
         },
-        // Update the GeoJSON property and emit the "geojson" event
+        /**
+         * @param {*} geojson 
+         * This is a method called updateGeojson that takes a geojson parameter. The purpose of this method is to update the current geojson property value of the object calling the method. 
+         * First, the method assigns the new geojson value to the geojson property of the object with this.geojson = geojson. 
+         * Then, it emits an event with this.$emit("geojson", geojson);. This event is emitted with the name "geojson" and passes the geojson value as a parameter. 
+         * This code assumes that the object calling the method has a $emit method, which is usually the case in Vue.js components.
+         */
         updateGeojson(geojson) {
             this.geojson = geojson;
             this.$emit("geojson", geojson);
         },
-        // Set up the Leaflet edit mode functionality
+        /**
+         * The buildLeafletEditMode() function checks if the "edit" flag is set to true. If not, the function returns. If yes, it checks if the current multipolygon is null to determine if drawMode or editMode should be set. 
+         * If the current multipolygon is null, it sets the draw mode. Else, it sets the edit mode. An event listener is then added to the map for when a new shape is created on the map. 
+         * Upon creation, the function creates a new feature group and adds the shape layer to it. It then converts the feature group to GeoJSON and calls the updateGeojson function with the result.
+         * Another event listener is added for when a shape is edited on the map. When this event is triggered, the function stops the event from propagating, 
+         * converts the feature group to GeoJSON, and calls the updateGeojson function with the result.
+         * Then there are two more event listeners. The first is for when delete mode is stopped, and it stops the event from propagating. 
+         * The second is for when draw mode is stopped, and it sets the edit mode and stops the event from propagating.
+         */
         buildLeafletEditMode() {
             if (!this.edit) {
                 return;
@@ -237,7 +297,12 @@ export default {
                 L.DomEvent.stopPropagation(e);
             })
         },
-        // Set the map to edit mode for an existing multipolygon
+        /**
+         * The above code defines a function called setEditMode(), which is used to enable the edit mode of a drawing tool. 
+         * Inside the function, the existing draw control is removed from the map and then a new draw control is created with editing features enabled. 
+         * The existing multipolygon feature group is passed to this new draw control, along with the configuration option 'remove: false' which disables the remove button. 
+         * The new draw control is then added to the map. Additionally, the function also toggles the visibility of the deleteIcon element to be visible.
+         */
         setEditMode() {
             try {
                 this.map.removeControl(this.drawControl);
@@ -254,7 +319,14 @@ export default {
             });
             this.map.addControl(this.drawControl);
         },
-        // Set the map to draw mode for creating a new multipolygon
+        /**
+         * This code defines a function called "setDrawMode" that removes an existing drawing control from a map, 
+         * hides a delete icon, and adds a new drawing control to the map with specific options.
+         * The "try-catch" statements attempt to remove the previous drawing control and hide the delete icon, but if they don't exist, they do nothing.
+         * The code then creates a new drawing control using Leaflet.js library, with the ability to draw a polygon with specific options and disallows intersection. 
+         * It disables drawing for other shapes like polyline, rectangle, circle, marker, and circlemarker, and also disables editing. 
+         * Finally, it adds this new drawing control to the map.
+         */
         setDrawMode() {
             try {
                 this.map.removeControl(this.drawControl);
@@ -265,7 +337,8 @@ export default {
             this.drawControl = new L.Control.Draw({
                 draw: {
                     polygon: {
-                        shapeOptions: MULTIPOLYGON_OPTIONS
+                        shapeOptions: MULTIPOLYGON_OPTIONS,
+                        allowIntersection: false,
                     },
                     polyline: false,
                     rectangle: false,
