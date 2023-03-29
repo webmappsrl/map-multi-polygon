@@ -40,3 +40,6 @@
     align-self: auto;
     margin-right: 5px;
 }
+.leaflet-draw-toolbar a {
+    background-image: linear-gradient(transparent, transparent), url(https://leaflet.github.io/Leaflet.draw/src/images/spritesheet.svg)!important;
+}
