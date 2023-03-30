@@ -89,9 +89,33 @@ You can display a post gist geography(MultiPolygon,4326) area on the map and cha
 
 As of v1.4.0 it's possible to use a `Tab` class instead of an array to represent your tabs.
 
-| Property    | Type                | Default     | Description                                                                                                                                                            |
-|-------------|---------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| center        | `array`            | `[0,0]`      | The coordinates used for center the view of an empty map                                                                                              |
-| attribution      | `string` | `<a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>`      | the html showed as map attribution                                   |
-| tiles  | `string` | `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`      | The tile url used.                                    |
-
+<div style="overflow-x:auto;">
+  <table style="width: 100%">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th style="width: 10%;">Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>center</td>
+        <td>array</td>
+        <td>[0,0]</td>
+        <td>The coordinates used to center the view of an empty map.</td>
+      </tr>
+      <td>attribution</td>
+        <td>string</td>
+        <td>'&lt;a href="https://www.openstreetmap.org/"&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href="https://creativecommons.org/licenses/by-sa/2.0/"&gt;CC-BY-SA&lt;/a&gt;, Imagery (c) &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;'</td>
+        <td>The HTML content displayed as map attribution.</td>
+      <tr>
+        <td>tiles</td>
+        <td>string</td>
+        <td>'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'</td>
+        <td>The tile URL used for the map.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
