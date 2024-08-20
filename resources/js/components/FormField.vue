@@ -2,8 +2,8 @@
 <template>
   <default-field :field="field">
     <template #field>
-      <wm-map :field="field" :attribution="attribution" @geojson="updateForm" :edit=true>
-      </wm-map>
+      <wm-map-multi-polygon  :field="field" :attribution="attribution" @geojson="updateForm" :edit=true>
+      </wm-map-multi-polygon>
     </template>
   </default-field>
 </template>
