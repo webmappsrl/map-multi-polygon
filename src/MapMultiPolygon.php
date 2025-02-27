@@ -28,23 +28,13 @@ class MapMultiPolygon extends Field
             $this->withMeta(['center' => $this->zone['center']]);
         }
     }
-    /**
-     * Hydrate the given attribute on the model based on the incoming request.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  string  $requestAttribute
-     * @param  object  $model
-     * @param  string  $attribute
-     * @return void
-     */
-    protected function fillAttributeFromRequest(
-        NovaRequest $request,
-        $requestAttribute,
-        $model,
-        $attribute
-    ) {
-        if ($request->exists($requestAttribute)) {
-            $model->{$attribute} = $this->geojsonToGeometry($request[$requestAttribute]);
+    public function fillModelWithData($model, $value, string $attribute)
+    {
+        $newValue = $this->geojsonToGeometry($value);
+        $oldAttribute = $this->geometryToGeojson($model->{$attribute});
+        $oldValue = $this->geojsonToGeometry($oldAttribute['geojson']);
+        if ($newValue != $oldValue) {
+            parent::fillModelWithData($model, $newValue, $attribute);
         }
     }
 
