@@ -13,7 +13,7 @@
 
 ## Requirements
 
-- `php: ^8`
+- `php: ^8` 
 - `laravel/nova: ^4`
 
 ## Installation
