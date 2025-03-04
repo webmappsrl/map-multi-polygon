@@ -1,7 +1,7 @@
 {
   "packages": {
     ".": {
-      "package-name": "wm/map-point",
+      "package-name": "wm/map-multi-polygon",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "draft": false,
