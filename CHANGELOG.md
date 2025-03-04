@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/webmappsrl/map-multi-polygon/compare/wm/map-multi-polygon-v1.0.0...wm/map-multi-polygon-v1.0.1) (2025-03-04)
+
+
+### Miscellaneous
+
+* updated readme ([734d569](https://github.com/webmappsrl/map-multi-polygon/commit/734d569de8323f7de42575a0eb8e32b66586b771))
+
 ## 1.0.0 (2025-02-20)
 
 
