@@ -28,7 +28,7 @@ class MapMultiPolygon extends Field
             $this->withMeta(['center' => $this->zone['center']]);
         }
     }
-    public function fillModelWithData($model, $value, string $attribute)
+    public function fillModelWithData(object $model, mixed $value, string $attribute): void
     {
         $newValue = $this->geojsonToGeometry($value);
         $oldAttribute = $this->geometryToGeojson($model->{$attribute});
