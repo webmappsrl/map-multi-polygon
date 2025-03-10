@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/webmappsrl/map-multi-polygon/compare/wm/map-multi-polygon-v1.0.1...wm/map-multi-polygon-v1.0.2) (2025-03-10)
+
+
+### Bug Fixes
+
+* Changed FillModelWithDataDeclaration to adapt to Nova5 oc:5069 ([#9](https://github.com/webmappsrl/map-multi-polygon/issues/9)) ([2280903](https://github.com/webmappsrl/map-multi-polygon/commit/2280903043d160d7ecb174cd02ca235ac8687a13))
+
 ## [1.0.1](https://github.com/webmappsrl/map-multi-polygon/compare/wm/map-multi-polygon-v1.0.0...wm/map-multi-polygon-v1.0.1) (2025-03-04)
 
 
