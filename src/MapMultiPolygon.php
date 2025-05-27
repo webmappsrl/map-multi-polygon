@@ -32,7 +32,11 @@ class MapMultiPolygon extends Field
     {
         $newValue = $this->geojsonToGeometry($value);
         $oldAttribute = $this->geometryToGeojson($model->{$attribute});
-        $oldValue = $this->geojsonToGeometry($oldAttribute['geojson']);
+        if ($oldAttribute) {
+            $oldValue = $this->geojsonToGeometry($oldAttribute['geojson']);
+        } else {
+            $oldValue = null;
+        }
         if ($newValue != $oldValue) {
             parent::fillModelWithData($model, $newValue, $attribute);
         }
