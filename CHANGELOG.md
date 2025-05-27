@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.3](https://github.com/webmappsrl/map-multi-polygon/compare/v1.0.2...v1.0.3) (2025-03-31)
+
+
+### Bug Fixes
+
+* Changed FillModelWithDataDeclaration to adapt to Nova5 oc:5069 ([#9](https://github.com/webmappsrl/map-multi-polygon/issues/9)) ([2280903](https://github.com/webmappsrl/map-multi-polygon/commit/2280903043d160d7ecb174cd02ca235ac8687a13))
+
+
+### Miscellaneous
+
+* **main:** release wm/map-multi-polygon 1.0.1 ([#8](https://github.com/webmappsrl/map-multi-polygon/issues/8)) ([5008a1e](https://github.com/webmappsrl/map-multi-polygon/commit/5008a1eba29193c2844b1dd9c2477626ed7583fe))
+* **main:** release wm/map-multi-polygon 1.0.2 ([be15b45](https://github.com/webmappsrl/map-multi-polygon/commit/be15b456687e5fa9add119a9da3d4ef89058a125))
+* **main:** release wm/map-multi-polygon 1.0.2 ([#10](https://github.com/webmappsrl/map-multi-polygon/issues/10)) ([7128eb0](https://github.com/webmappsrl/map-multi-polygon/commit/7128eb00092929cb1569fd6e469b27d37f901e3f))
+* update release-please-config.json to include 'include-component-in-tag' option ([bacc803](https://github.com/webmappsrl/map-multi-polygon/commit/bacc803c763439437175d7b4640578da0ebe44ae))
+* updated readme ([734d569](https://github.com/webmappsrl/map-multi-polygon/commit/734d569de8323f7de42575a0eb8e32b66586b771))
+
 ## [1.0.2](https://github.com/webmappsrl/map-multi-polygon/compare/wm/map-multi-polygon-v1.0.1...wm/map-multi-polygon-v1.0.2) (2025-03-10)
 
 
