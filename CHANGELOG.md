@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/webmappsrl/map-multi-polygon/compare/v1.0.3...v1.0.4) (2025-05-27)
+
+
+### Bug Fixes
+
+* handle null value in fillModelWithData ([f00b389](https://github.com/webmappsrl/map-multi-polygon/commit/f00b389e78c9bfea2689433463cafbabbaabff3a))
+
 ## [1.0.3](https://github.com/webmappsrl/map-multi-polygon/compare/v1.0.2...v1.0.3) (2025-03-31)
 
 
